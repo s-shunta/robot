@@ -1,0 +1,35 @@
+@ECHO OFF
+
+
+@REM 変数設定
+SET SCINARIOPATH=CS事業部\CS_002\Main.xaml
+SET INPUT_ARG1=arg1
+SET INPUT_VALUE1=%~1
+SET INPUT_ARG2=arg2
+SET INPUT_VALUE2=%~2
+
+@REM エスケープシーケンス対策　
+SET INPUT_VALUE1=%INPUT_VALUE1:\=@@%
+SET INPUT_VALUE2=%INPUT_VALUE2:\=@@%
+SET INPUT_VALUE1=%INPUT_VALUE1:/=@@%
+SET INPUT_VALUE2=%INPUT_VALUE2:/=@@%
+
+@REM INPUTフォルダをローカルにコピーする
+XCOPY %INPUT_ARG1% C:\RPA随時処理実行環境\WORK
+
+@REM "UiPath起動"バッチ起動&引数渡し
+cmd /C C:\RPAシナリオ\RUN\BAT\共通\UiPath起動.bat "%SCINARIOPATH%" "%INPUT_ARG1%" "%INPUT_VALUE1%" "%INPUT_ARG2%" "%INPUT_VALUE2%"
+
+@REM OUTPUTフォルダを指定のフォルダにコピーする
+echo D | XCOPY C:\RPA随時処理実行環境\OUTPUT %INPUT_ARG2%
+
+
+
+if 1 equ %ERRORLEVEL% (
+exit /B -1
+) else (
+exit /B 0
+)
+
+EXIT
+

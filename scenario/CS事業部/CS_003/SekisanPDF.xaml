@@ -1,0 +1,1088 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:s="clr-namespace:System;assembly=mscorlib"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="PageArg" Type="InArgument(scg:List(x:String))" />
+    <x:Property Name="FilePathArg" Type="InArgument(x:String)" />
+    <x:Property Name="SasshiArg" Type="InArgument(x:String)" />
+    <x:Property Name="OutputFolderNameArg" Type="InArgument(x:String)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Main_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>Microsoft.VisualBasic.CompilerServices</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Cryptography</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.PDF</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart DisplayName="Flowchart" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="x:String" Default="C:\Users\shun-satou\OneDrive - T-NET JAPAN Co., Ltd\ドキュメント\RPA開発\実行ファイル\積算資料_PDF\積算資料pdfファイル\" Name="FilePath" />
+      <Variable x:TypeArguments="x:String" Default="積算資料P" Name="FileName" />
+      <Variable x:TypeArguments="x:Int32" Default="1" Name="i" />
+      <Variable x:TypeArguments="sd:DataTable" Default="[new DataTable]" Name="IdPass" />
+      <Variable x:TypeArguments="x:String" Default="[DateTime.Now.Date.toString(&quot;MM&quot;)]" Name="month" />
+      <Variable x:TypeArguments="ui:UiElement" Name="FInd" />
+      <Variable x:TypeArguments="x:Int32" Name="Max" />
+      <Variable x:TypeArguments="x:Int32" Name="Min" />
+      <Variable x:TypeArguments="x:String" Name="erorr" />
+    </Flowchart.Variables>
+    <Flowchart.StartNode>
+      <FlowStep x:Name="__ReferenceID5" sap2010:WorkflowViewState.IdRef="FlowStep_20">
+        <Sequence DisplayName="初期設定" sap2010:WorkflowViewState.IdRef="Sequence_45">
+          <TryCatch DisplayName="トライキャッチ" sap2010:WorkflowViewState.IdRef="TryCatch_2">
+            <TryCatch.Try>
+              <Sequence DisplayName="シーケンス" sap2010:WorkflowViewState.IdRef="Sequence_60">
+                <ui:CreateDirectory ContinueOnError="{x:Null}" DisplayName="PDF用フォルダ作成" sap2010:WorkflowViewState.IdRef="CreateDirectory_3" Path="[FilePathArg &amp; OutputFolderNameArg &amp; &quot;\積算資料PDF&quot;]" />
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_16">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[Max]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(PageArg.Max)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap2010:WorkflowViewState.IdRef="Assign_17">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[Min]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(PageArg.Min)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+              </Sequence>
+            </TryCatch.Try>
+            <TryCatch.Catches>
+              <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+                <ActivityAction x:TypeArguments="s:Exception">
+                  <ActivityAction.Argument>
+                    <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                  </ActivityAction.Argument>
+                  <Sequence DisplayName="シーケンス" sap2010:WorkflowViewState.IdRef="Sequence_61">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="ワークフローファイルを呼び出し" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="C:\RPAシナリオ\scenario\共通シナリオ\処理結果更新\Main.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:Int32" x:Key="setStatsu">-1</InArgument>
+                        <OutArgument x:TypeArguments="x:Int32" x:Key="sqlRet" />
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                    <TerminateWorkflow DisplayName="ワークフローを終了" Exception="[exception]" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_1" />
+                  </Sequence>
+                </ActivityAction>
+              </Catch>
+            </TryCatch.Catches>
+          </TryCatch>
+        </Sequence>
+        <FlowStep.Next>
+          <FlowStep x:Name="__ReferenceID2" sap2010:WorkflowViewState.IdRef="FlowStep_12">
+            <Sequence DisplayName="積算資料電子版表示" sap2010:WorkflowViewState.IdRef="Sequence_27">
+              <TryCatch DisplayName="トライキャッチ" sap2010:WorkflowViewState.IdRef="TryCatch_4">
+                <TryCatch.Try>
+                  <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="電子書籍表示" sap2010:WorkflowViewState.IdRef="BrowserScope_6" InformativeScreenshot="a50a00c32f44cbfe2399eef252ede163" Selector="&lt;html title='積算資料電子版' /&gt;">
+                    <ui:BrowserScope.Body>
+                      <ActivityAction x:TypeArguments="x:Object">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_28">
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="「電子書籍閲覧」をクリックする" sap2010:WorkflowViewState.IdRef="Click_12" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition OffsetX="92" OffsetY="17" Position="TopLeft" />
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="49eb871f3cec78e0e8dab425d30991b9" Selector="&lt;webctrl parentid='SCR001R01:FLS001R01Link' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                          <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="「表示書籍」選択" sap2010:WorkflowViewState.IdRef="SelectItem_4" Item="[&quot;月刊｢&quot; &amp; SasshiArg &amp;&quot;｣&quot;]">
+                            <ui:SelectItem.Items>
+                              <scg:List x:TypeArguments="x:String" Capacity="4">
+                                <x:String>月刊｢積算資料｣</x:String>
+                                <x:String>月刊｢積算資料別冊｣</x:String>
+                              </scg:List>
+                            </ui:SelectItem.Items>
+                            <ui:SelectItem.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5efa38601172324de06315101d88e485" Selector="&lt;webctrl id='FLS001R01:shosekiValue' tag='SELECT' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:SelectItem.Target>
+                          </ui:SelectItem>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="「電子書籍版表示」をクリックする" sap2010:WorkflowViewState.IdRef="Click_13" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition OffsetX="65" OffsetY="11" Position="TopLeft" />
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4b48ffe6244a6fa6e043413c47fd034d" Selector="&lt;webctrl id='FLS001R01:showFlashDummyBtn' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                          <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="「価格・巻末情報 編」をクリックする" sap2010:WorkflowViewState.IdRef="Click_14" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                            <ui:Click.CursorPosition>
+                              <ui:CursorPosition OffsetX="164" OffsetY="23" Position="TopLeft" />
+                            </ui:Click.CursorPosition>
+                            <ui:Click.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b924728d50b91e25c82f76601d3f1af6" Selector="&lt;webctrl id='FLS001R01:j_idt70:1:showFlashLink' tag='A' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:Click.Target>
+                          </ui:Click>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:BrowserScope.Body>
+                  </ui:BrowserScope>
+                </TryCatch.Try>
+                <TryCatch.Catches>
+                  <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_4">
+                    <ActivityAction x:TypeArguments="s:Exception">
+                      <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                      </ActivityAction.Argument>
+                      <Sequence DisplayName="シーケンス" sap2010:WorkflowViewState.IdRef="Sequence_63">
+                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="ワークフローファイルを呼び出し" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_5" UnSafe="False" WorkflowFileName="C:\RPAシナリオ\scenario\共通シナリオ\処理結果更新\Main.xaml">
+                          <ui:InvokeWorkflowFile.Arguments>
+                            <InArgument x:TypeArguments="x:Int32" x:Key="setStatsu">-1</InArgument>
+                            <OutArgument x:TypeArguments="x:Int32" x:Key="sqlRet" />
+                          </ui:InvokeWorkflowFile.Arguments>
+                        </ui:InvokeWorkflowFile>
+                        <TerminateWorkflow DisplayName="ワークフローを終了" Exception="[exception]" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_3" />
+                      </Sequence>
+                    </ActivityAction>
+                  </Catch>
+                </TryCatch.Catches>
+              </TryCatch>
+            </Sequence>
+            <FlowStep.Next>
+              <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_18">
+                <Sequence DisplayName="ページ数入力" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                  <TryCatch DisplayName="トライキャッチ" sap2010:WorkflowViewState.IdRef="TryCatch_5">
+                    <TryCatch.Try>
+                      <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="対象のページを表示する" sap2010:WorkflowViewState.IdRef="BrowserScope_8" InformativeScreenshot="8f953b14d3588d41b4caeff079524702" Selector="&lt;html title='積算資料電子版' /&gt;">
+                        <ui:BrowserScope.Body>
+                          <ActivityAction x:TypeArguments="x:Object">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                            </ActivityAction.Argument>
+                            <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_46">
+                              <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="ページ数を入力する" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_20" SendWindowMessages="False" SimulateType="True" Text="[Min.ToString]">
+                                <ui:TypeInto.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="ea902e515bb46a2e913b177d0d9e3d97" Selector="&lt;webctrl id='inpPage' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                                </ui:TypeInto.Target>
+                              </ui:TypeInto>
+                              <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="エンターキー" EmptyField="False" sap2010:WorkflowViewState.IdRef="SendHotkey_1" Key="enter" KeyModifiers="None" SendWindowMessages="False" SpecialKey="True">
+                                <ui:SendHotkey.Target>
+                                  <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="9affa2cd784c2ebaffe5d771b93a7033" Selector="&lt;webctrl id='inpPage' tag='INPUT' /&gt;" WaitForReady="COMPLETE" />
+                                </ui:SendHotkey.Target>
+                              </ui:SendHotkey>
+                            </Sequence>
+                          </ActivityAction>
+                        </ui:BrowserScope.Body>
+                      </ui:BrowserScope>
+                    </TryCatch.Try>
+                    <TryCatch.Catches>
+                      <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_5">
+                        <ActivityAction x:TypeArguments="s:Exception">
+                          <ActivityAction.Argument>
+                            <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                          </ActivityAction.Argument>
+                          <Sequence DisplayName="シーケンス" sap2010:WorkflowViewState.IdRef="Sequence_64">
+                            <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="ワークフローファイルを呼び出し" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="C:\RPAシナリオ\scenario\共通シナリオ\処理結果更新\Main.xaml">
+                              <ui:InvokeWorkflowFile.Arguments>
+                                <InArgument x:TypeArguments="x:Int32" x:Key="setStatsu">-1</InArgument>
+                                <OutArgument x:TypeArguments="x:Int32" x:Key="sqlRet" />
+                              </ui:InvokeWorkflowFile.Arguments>
+                            </ui:InvokeWorkflowFile>
+                            <TerminateWorkflow DisplayName="ワークフローを終了" Exception="[exception]" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_4" />
+                          </Sequence>
+                        </ActivityAction>
+                      </Catch>
+                    </TryCatch.Catches>
+                  </TryCatch>
+                  <Delay DisplayName="待機" Duration="00:00:03" sap2010:WorkflowViewState.IdRef="Delay_1" />
+                </Sequence>
+                <FlowStep.Next>
+                  <FlowStep x:Name="__ReferenceID4" sap2010:WorkflowViewState.IdRef="FlowStep_19">
+                    <Sequence DisplayName="印刷" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                      <TryCatch DisplayName="Try catch" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                        <TryCatch.Try>
+                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_57">
+                            <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser ' 印刷ボタンを押す '" sap2010:WorkflowViewState.IdRef="BrowserScope_7" InformativeScreenshot="b4a8f18dd5df6bc0af42f13755a7b187" Selector="&lt;html title='積算資料電子版' /&gt;">
+                              <ui:BrowserScope.Body>
+                                <ActivityAction x:TypeArguments="x:Object">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_40">
+                                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="印刷ボタンをクリックする" sap2010:WorkflowViewState.IdRef="Click_16" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                      <ui:Click.CursorPosition>
+                                        <ui:CursorPosition OffsetX="5" OffsetY="9" Position="TopLeft" />
+                                      </ui:Click.CursorPosition>
+                                      <ui:Click.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="32ff72eaed45422bee3bcf4c4e650c09" Selector="&lt;webctrl id='btnPrint' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                                      </ui:Click.Target>
+                                    </ui:Click>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:BrowserScope.Body>
+                            </ui:BrowserScope>
+                            <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window ' 印刷 '" sap2010:WorkflowViewState.IdRef="WindowScope_3" InformativeScreenshot="14207c5e089965d56976e6aabb73a335" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='印刷' /&gt;">
+                              <ui:WindowScope.Body>
+                                <ActivityAction x:TypeArguments="x:Object">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                                    <ui:SelectItem ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="PDF選択" sap2010:WorkflowViewState.IdRef="SelectItem_6" Item="Microsoft Print to PDF">
+                                      <ui:SelectItem.Items>
+                                        <scg:List x:TypeArguments="x:String" Capacity="4">
+                                          <x:String>Fax</x:String>
+                                          <x:String>Microsoft Print to PDF</x:String>
+                                          <x:String>Microsoft XPS Document Writer</x:String>
+                                          <x:String>Send To OneNote 2016</x:String>
+                                        </scg:List>
+                                      </ui:SelectItem.Items>
+                                      <ui:SelectItem.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="7f7e6169145a81c04e215f0f30204108" Selector="&lt;wnd cls='#32770' title='全般' /&gt;&lt;wnd ctrlid='1' title='FolderView' /&gt;&lt;ctrl name='フォルダー ビュー' role='list' /&gt;" WaitForReady="INTERACTIVE" />
+                                      </ui:SelectItem.Target>
+                                    </ui:SelectItem>
+                                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="「印刷」ボタンをクリックする" sap2010:WorkflowViewState.IdRef="Click_17" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                      <ui:Click.CursorPosition>
+                                        <ui:CursorPosition OffsetX="45" OffsetY="20" Position="TopLeft" />
+                                      </ui:Click.CursorPosition>
+                                      <ui:Click.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8dc63742e32c70df79022c72d781ee18" Selector="&lt;wnd ctrlid='1' title='印刷(&amp;amp;P)' /&gt;" WaitForReady="INTERACTIVE" />
+                                      </ui:Click.Target>
+                                    </ui:Click>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:WindowScope.Body>
+                            </ui:WindowScope>
+                            <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window ' 名前を付けて保存する '" sap2010:WorkflowViewState.IdRef="WindowScope_4" InformativeScreenshot="fbd4cb5d5c1549387b86673c73d0570f" Selector="&lt;wnd app='*.exe' cls='#32770' title='印刷結果を名前を付けて保存' /&gt;">
+                              <ui:WindowScope.Body>
+                                <ActivityAction x:TypeArguments="x:Object">
+                                  <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                  </ActivityAction.Argument>
+                                  <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_43">
+                                    <ui:TypeInto DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" Activate="True" ClickBeforeTyping="False" DisplayName="ファイル名入力" EmptyField="True" sap2010:WorkflowViewState.IdRef="TypeInto_18" SendWindowMessages="False" SimulateType="False" Text="[FilePathArg &amp; OutputFolderNameArg &amp; &quot;\積算資料PDF\P&quot; &amp; Min.ToString &amp; &quot;-&quot; &amp; (Min + 1).ToString]">
+                                      <ui:TypeInto.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="92f9695a38a9d91a310630b890d9daa4" Selector="&lt;wnd aaname='Explorer ウィンドウ' cls='DirectUIHWND' /&gt;&lt;wnd aaname='ファイル名:' cls='ComboBox' /&gt;&lt;wnd ctrlid='1001' /&gt;" WaitForReady="INTERACTIVE" />
+                                      </ui:TypeInto.Target>
+                                    </ui:TypeInto>
+                                    <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="「保存」ボタンをクリックする" sap2010:WorkflowViewState.IdRef="Click_18" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                      <ui:Click.CursorPosition>
+                                        <ui:CursorPosition OffsetX="33" OffsetY="9" Position="TopLeft" />
+                                      </ui:Click.CursorPosition>
+                                      <ui:Click.Target>
+                                        <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="b371177d97385f441b2ba18b22d5ddcb" Selector="&lt;wnd ctrlid='1' title='保存(&amp;amp;S)' /&gt;" WaitForReady="INTERACTIVE" />
+                                      </ui:Click.Target>
+                                    </ui:Click>
+                                  </Sequence>
+                                </ActivityAction>
+                              </ui:WindowScope.Body>
+                            </ui:WindowScope>
+                          </Sequence>
+                        </TryCatch.Try>
+                        <TryCatch.Catches>
+                          <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                            <ActivityAction x:TypeArguments="s:Exception">
+                              <ActivityAction.Argument>
+                                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                              </ActivityAction.Argument>
+                              <Sequence DisplayName="Recording Sequence" sap2010:WorkflowViewState.IdRef="Sequence_59">
+                                <Assign sap2010:WorkflowViewState.IdRef="Assign_19">
+                                  <Assign.To>
+                                    <OutArgument x:TypeArguments="x:String">[erorr]</OutArgument>
+                                  </Assign.To>
+                                  <Assign.Value>
+                                    <InArgument x:TypeArguments="x:String">["P" &amp; Min &amp; "の印刷に失敗しました"]</InArgument>
+                                  </Assign.Value>
+                                </Assign>
+                                <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_3" Level="Error" Message="[erorr]" />
+                                <ui:LogMessage DisplayName="Log message" sap2010:WorkflowViewState.IdRef="LogMessage_4" Level="Error" Message="[exception.ToString]" />
+                                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DisplayName="Click 'Button'" sap2010:WorkflowViewState.IdRef="Click_25" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                  <ui:Click.CursorPosition>
+                                    <ui:CursorPosition OffsetX="31" OffsetY="6" Position="TopLeft" />
+                                  </ui:Click.CursorPosition>
+                                  <ui:Click.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="eb1550426ec7c6d072822738a1a1efb0" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='印刷' /&gt;&lt;wnd ctrlid='2' title='キャンセル' /&gt;" TimeoutMS="1500" WaitForReady="INTERACTIVE" />
+                                  </ui:Click.Target>
+                                </ui:Click>
+                                <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" ContinueOnError="True" DisplayName="Click 'push button  キャンセル'" sap2010:WorkflowViewState.IdRef="Click_26" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                  <ui:Click.CursorPosition>
+                                    <ui:CursorPosition OffsetX="49" OffsetY="13" Position="TopLeft" />
+                                  </ui:Click.CursorPosition>
+                                  <ui:Click.Target>
+                                    <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="5466f6083e376226891ec845eda53431" Selector="&lt;wnd app='splwow64.exe' cls='#32770' title='印刷結果を名前を付けて保存' /&gt;&lt;wnd ctrlid='2' title='キャンセル' /&gt;&lt;ctrl name='キャンセル' role='push button' /&gt;" TimeoutMS="1500" WaitForReady="INTERACTIVE" />
+                                  </ui:Click.Target>
+                                </ui:Click>
+                              </Sequence>
+                            </ActivityAction>
+                          </Catch>
+                        </TryCatch.Catches>
+                        <TryCatch.Finally>
+                          <Sequence sap2010:WorkflowViewState.IdRef="Sequence_58">
+                            <Sequence DisplayName="上書き拒否" sap2010:WorkflowViewState.IdRef="Sequence_54">
+                              <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" Window="{x:Null}" ContinueOnError="True" DisplayName="Attach Window '          Dialog'" sap2010:WorkflowViewState.IdRef="WindowScope_7" Selector="&lt;wnd app='splwow64.exe' cls='#32770' title='名前を付けて保存の確認' /&gt;" TimeoutMS="1000">
+                                <ui:WindowScope.Body>
+                                  <ActivityAction x:TypeArguments="x:Object">
+                                    <ActivityAction.Argument>
+                                      <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                    </ActivityAction.Argument>
+                                    <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_52">
+                                      <ui:WaitUiElementAppear ContinueOnError="True" DisplayName="Find Element 'splwow64.exe  名前を付けて保存の...'" FoundElement="[FInd]" sap2010:WorkflowViewState.IdRef="WaitUiElementAppear_2" WaitActive="False" WaitVisible="False">
+                                        <ui:WaitUiElementAppear.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" InformativeScreenshot="cb2278a5f11fc00a5ebd307fabc014be" Selector="&lt;wnd cls='DirectUIHWND' /&gt;&lt;ctrl name='名前を付けて保存の確認' role='pane' /&gt;&lt;ctrl name='MainInstructionIcon' role='graphic' /&gt;" TimeoutMS="1000" WaitForReady="INTERACTIVE" />
+                                        </ui:WaitUiElementAppear.Target>
+                                      </ui:WaitUiElementAppear>
+                                    </Sequence>
+                                  </ActivityAction>
+                                </ui:WindowScope.Body>
+                              </ui:WindowScope>
+                              <If Condition="[IsNothing(Find)]" sap2010:WorkflowViewState.IdRef="If_3">
+                                <If.Else>
+                                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_56">
+                                    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window '          Dialog'" sap2010:WorkflowViewState.IdRef="WindowScope_9" Selector="&lt;wnd app='splwow64.exe' cls='#32770' title='名前を付けて保存の確認' /&gt;">
+                                      <ui:WindowScope.Body>
+                                        <ActivityAction x:TypeArguments="x:Object">
+                                          <ActivityAction.Argument>
+                                            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                          </ActivityAction.Argument>
+                                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_55">
+                                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Button'" sap2010:WorkflowViewState.IdRef="Click_24" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                              <ui:Click.CursorPosition>
+                                                <ui:CursorPosition OffsetX="40" OffsetY="17" Position="TopLeft" />
+                                              </ui:Click.CursorPosition>
+                                              <ui:Click.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="a4ca0b6f4e67801e92b950a2f61592f1" Selector="&lt;wnd aaname='いいえ(N)' cls='Button' title='いいえ(&amp;amp;N)' /&gt;" WaitForReady="INTERACTIVE" />
+                                              </ui:Click.Target>
+                                            </ui:Click>
+                                          </Sequence>
+                                        </ActivityAction>
+                                      </ui:WindowScope.Body>
+                                    </ui:WindowScope>
+                                    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="Attach Window '          Dialog'" sap2010:WorkflowViewState.IdRef="WindowScope_8" Selector="&lt;wnd app='splwow64.exe' cls='#32770' title='印刷結果を名前を付けて保存' /&gt;">
+                                      <ui:WindowScope.Body>
+                                        <ActivityAction x:TypeArguments="x:Object">
+                                          <ActivityAction.Argument>
+                                            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                          </ActivityAction.Argument>
+                                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_53">
+                                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="Click 'Button'" sap2010:WorkflowViewState.IdRef="Click_23" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                              <ui:Click.CursorPosition>
+                                                <ui:CursorPosition OffsetX="57" OffsetY="18" Position="TopLeft" />
+                                              </ui:Click.CursorPosition>
+                                              <ui:Click.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="df660f8b60c02806ad00ecfd69050259" Selector="&lt;wnd ctrlid='2' title='キャンセル' /&gt;" WaitForReady="INTERACTIVE" />
+                                              </ui:Click.Target>
+                                            </ui:Click>
+                                          </Sequence>
+                                        </ActivityAction>
+                                      </ui:WindowScope.Body>
+                                    </ui:WindowScope>
+                                  </Sequence>
+                                </If.Else>
+                              </If>
+                            </Sequence>
+                            <Assign sap2010:WorkflowViewState.IdRef="Assign_15">
+                              <Assign.To>
+                                <OutArgument x:TypeArguments="x:Int32">[Min]</OutArgument>
+                              </Assign.To>
+                              <Assign.Value>
+                                <InArgument x:TypeArguments="x:Int32">[Min + 2]</InArgument>
+                              </Assign.Value>
+                            </Assign>
+                          </Sequence>
+                        </TryCatch.Finally>
+                      </TryCatch>
+                    </Sequence>
+                    <FlowStep.Next>
+                      <FlowDecision x:Name="__ReferenceID1" Condition="[Max &lt; Min]" sap2010:WorkflowViewState.IdRef="FlowDecision_1">
+                        <FlowDecision.True>
+                          <FlowStep x:Name="__ReferenceID3" sap2010:WorkflowViewState.IdRef="FlowStep_13">
+                            <Sequence DisplayName="終了" sap2010:WorkflowViewState.IdRef="Sequence_29">
+                              <TryCatch DisplayName="トライキャッチ" sap2010:WorkflowViewState.IdRef="TryCatch_6">
+                                <TryCatch.Try>
+                                  <Sequence DisplayName="シーケンス" sap2010:WorkflowViewState.IdRef="Sequence_65">
+                                    <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="ログアウト" sap2010:WorkflowViewState.IdRef="BrowserScope_9" InformativeScreenshot="329e7a0147ac0d74656e39a185e5e7b4" Selector="&lt;html title='積算資料電子版' /&gt;">
+                                      <ui:BrowserScope.Body>
+                                        <ActivityAction x:TypeArguments="x:Object">
+                                          <ActivityAction.Argument>
+                                            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                          </ActivityAction.Argument>
+                                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_48">
+                                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="前画面に戻る" sap2010:WorkflowViewState.IdRef="Click_19" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                              <ui:Click.CursorPosition>
+                                                <ui:CursorPosition OffsetX="9" OffsetY="16" Position="TopLeft" />
+                                              </ui:Click.CursorPosition>
+                                              <ui:Click.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="3a39b9da50095d262ddae9ea4346a71f" Selector="&lt;webctrl parentid='closeTable' tag='IMG' /&gt;" WaitForReady="COMPLETE" />
+                                              </ui:Click.Target>
+                                            </ui:Click>
+                                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="ログアウト" sap2010:WorkflowViewState.IdRef="Click_20" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="True">
+                                              <ui:Click.CursorPosition>
+                                                <ui:CursorPosition OffsetX="51" OffsetY="13" Position="TopLeft" />
+                                              </ui:Click.CursorPosition>
+                                              <ui:Click.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="5c083e8b9a830d400846a99c8b1a156a" Selector="&lt;webctrl aaname='ログアウト' parentid='menu' tag='SPAN' /&gt;" WaitForReady="COMPLETE" />
+                                              </ui:Click.Target>
+                                            </ui:Click>
+                                          </Sequence>
+                                        </ActivityAction>
+                                      </ui:BrowserScope.Body>
+                                    </ui:BrowserScope>
+                                    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="ログアウト確認画面" sap2010:WorkflowViewState.IdRef="WindowScope_5" InformativeScreenshot="91b08c1448660b1aca79ce2d08c00445" Selector="&lt;wnd app='iexplore.exe' cls='#32770' title='Web ページからのメッセージ' /&gt;">
+                                      <ui:WindowScope.Body>
+                                        <ActivityAction x:TypeArguments="x:Object">
+                                          <ActivityAction.Argument>
+                                            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                          </ActivityAction.Argument>
+                                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_49">
+                                            <ui:Click DelayBefore="{x:Null}" DelayMS="{x:Null}" ClickType="CLICK_SINGLE" DisplayName="OKボタン" sap2010:WorkflowViewState.IdRef="Click_21" KeyModifiers="None" MouseButton="BTN_LEFT" SendWindowMessages="False" SimulateClick="False">
+                                              <ui:Click.CursorPosition>
+                                                <ui:CursorPosition OffsetX="34" OffsetY="20" Position="TopLeft" />
+                                              </ui:Click.CursorPosition>
+                                              <ui:Click.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="f13d749ff5fe95ce6e9c0d42cffbb9fe" Selector="&lt;wnd ctrlid='1' title='OK' /&gt;" WaitForReady="INTERACTIVE" />
+                                              </ui:Click.Target>
+                                            </ui:Click>
+                                          </Sequence>
+                                        </ActivityAction>
+                                      </ui:WindowScope.Body>
+                                    </ui:WindowScope>
+                                    <ui:WindowScope ApplicationWindow="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" Window="{x:Null}" DisplayName="ブラウザ終了" sap2010:WorkflowViewState.IdRef="WindowScope_6" Selector="&lt;html title='積算資料電子版' /&gt;">
+                                      <ui:WindowScope.Body>
+                                        <ActivityAction x:TypeArguments="x:Object">
+                                          <ActivityAction.Argument>
+                                            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                          </ActivityAction.Argument>
+                                          <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_50">
+                                            <ui:CloseApplication DisplayName="Close application 'iexplore.exe  積算資料電子版'" sap2010:WorkflowViewState.IdRef="CloseApplication_1">
+                                              <ui:CloseApplication.Target>
+                                                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="8578a314f39bd252ae981bf8f3f6d23d" WaitForReady="INTERACTIVE" />
+                                              </ui:CloseApplication.Target>
+                                            </ui:CloseApplication>
+                                          </Sequence>
+                                        </ActivityAction>
+                                      </ui:WindowScope.Body>
+                                    </ui:WindowScope>
+                                  </Sequence>
+                                </TryCatch.Try>
+                                <TryCatch.Catches>
+                                  <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_6">
+                                    <ActivityAction x:TypeArguments="s:Exception">
+                                      <ActivityAction.Argument>
+                                        <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                      </ActivityAction.Argument>
+                                      <Sequence DisplayName="シーケンス" sap2010:WorkflowViewState.IdRef="Sequence_66">
+                                        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="ワークフローファイルを呼び出し" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="C:\RPAシナリオ\scenario\共通シナリオ\処理結果更新\Main.xaml">
+                                          <ui:InvokeWorkflowFile.Arguments>
+                                            <InArgument x:TypeArguments="x:Int32" x:Key="setStatsu">-1</InArgument>
+                                            <OutArgument x:TypeArguments="x:Int32" x:Key="sqlRet" />
+                                          </ui:InvokeWorkflowFile.Arguments>
+                                        </ui:InvokeWorkflowFile>
+                                        <TerminateWorkflow DisplayName="ワークフローを終了" Exception="[exception]" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_5" />
+                                      </Sequence>
+                                    </ActivityAction>
+                                  </Catch>
+                                </TryCatch.Catches>
+                              </TryCatch>
+                            </Sequence>
+                          </FlowStep>
+                        </FlowDecision.True>
+                        <FlowDecision.False>
+                          <x:Reference>__ReferenceID0</x:Reference>
+                        </FlowDecision.False>
+                      </FlowDecision>
+                    </FlowStep.Next>
+                  </FlowStep>
+                </FlowStep.Next>
+              </FlowStep>
+            </FlowStep.Next>
+          </FlowStep>
+        </FlowStep.Next>
+      </FlowStep>
+    </Flowchart.StartNode>
+    <x:Reference>__ReferenceID1</x:Reference>
+    <x:Reference>__ReferenceID2</x:Reference>
+    <x:Reference>__ReferenceID3</x:Reference>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <x:Reference>__ReferenceID4</x:Reference>
+    <x:Reference>__ReferenceID5</x:Reference>
+    <FlowStep sap2010:WorkflowViewState.IdRef="FlowStep_21">
+      <TryCatch DisplayName="トライキャッチ" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_3">
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="シーケンス" sap2010:WorkflowViewState.IdRef="Sequence_62">
+                <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="ワークフローファイルを呼び出し" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="C:\RPAシナリオ\scenario\共通シナリオ\処理結果更新\Main.xaml">
+                  <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:Int32" x:Key="setStatsu">-1</InArgument>
+                    <OutArgument x:TypeArguments="x:Int32" x:Key="sqlRet" />
+                  </ui:InvokeWorkflowFile.Arguments>
+                </ui:InvokeWorkflowFile>
+                <TerminateWorkflow DisplayName="ワークフローを終了" Exception="[exception]" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_2" />
+              </Sequence>
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
+    </FlowStep>
+    <sads:DebugSymbol.Symbol>dz5DOlxSUEHjgrfjg4rjg6rjgqpcc2NlbmFyaW9cQ1Pkuovmpa3pg6hcQ1NfMDAzXFNla2lzYW5QREYueGFtbLYBVQPSBA8CAQFXNFeTAQIBBlg0WDsCAQVZM1k2AgEEWjhaSQIBA1s0W2ICAQJjCY0BFAMBuAGQAQ3VARgDAZwB2AERhQIcAwGHAYgCFckDIAIBKssDR8sDVwIBJ84DHaUEKAIBB2QLjAEWAwG5AZEBD9QBGgMBnQHZARODAh4DAYoBhAIThAJrAwGIAYkCF8gDIgIBK88DH6QEKgIBCGYPeBoDAcEBgAETiAEeAwG6AZMBE8ABJQMBpQHIARfQASIDAZ4B2wEX7wEpAwGSAfcBG/8BJgMBiwGEAjSEAj4DAYkBiwIb1wImAgFn/wIbxgMmAgFE3wIf+gIqAgEs0QMjkAQuAgEQmAQnoAQyAgEJZxFn2QEDAcoBaBFvGgMBxgFwEXcaAwHCAYEBFYYBLQMBvgGHARWHAZABAwG7AZMBkQKTAbECAwG3AZkBGb0BJAMBpgHJARnOATEDAaIBzwEZzwGUAQMBnwHbAZoC2wG6AgMBmwHhAR3sASgDAZMB+AEd/QE1AwGPAf4BHf4BmAEDAYwBjAIdngIvAwGAAZ8CHb4CLgIBdr8CHdYCLgIBaIADHb0DKAIBSr4DHcUDJgIBReACIecCKgIBP+gCIegCmwECATzpAiHpAqgBAgE56gIh8QIsAgEz8gIh+QIsAgEt0gMl7AM3AgEc7QMl/wM2AgEVgAQljwQ2AgERmQQpngRBAgENnwQpnwSkAQIBCmeSAWfWAQMBywFtO21OAwHJAWo8akEDAccBdTt1TgMBxQFyPHJBAwHDAYMBUYMBUwMBwAGBAbwBgQHpAQMBvwGHAUqHAVcDAbwBmgEboQEmAwGzAaIBG6wBKwMBrwGtARu0ASYDAasBtQEbvAEmAwGnAcsBVcsBVwMBpAHJAcAByQHtAQMBowHPAU7PAVsDAaAB4gEf5gEtAwGXAecBH+sBLwMBlAH6AVn6AVsDAZEB+AHEAfgB8QEDAZAB/gFS/gFfAwGNAYwCsAKMAtACAwGGAZICI5sCLgMBgQGfAp0CnwLXAgIBf6UCI7sCLgIBd78CpQK/AuMCAgF1xQIj0wIuAgFpgQMfkAMwAgFckQMfvAMkAgFLwwNHwwNQAgFIwANIwANNAgFG5QJM5QJuAgFC4gJN4gJUAgFA6AKPAegCmAECAT3pAo8B6QKlAQIBOu8CnwHvAv8BAgE47wKKAu8CkAICATfqAn7qAoQBAgE27AJN7AJQAgE17AJA7AJEAgE09wKfAfcCuAICATL3AsMC9wLJAgIBMfICfvIChAECATD0Ak30AlECAS/0AkD0AkQCAS7SA6IC0gPCAgIBJtgDK+kDNgIBHe0DmgLtA+ECAgEb8wMr/AM2AgEWgATeAYAE/gECARSGBCuMBDYCARKbBGWbBGcCAQ+ZBNABmQT9AQIBDp8EXp8EawIBC58BrgGfAe8BAwG2AZwBR5wBSwMBtQGcATqcAT4DAbQBogG9AaIB8wEDAbABqgGuAaoB6gEDAbIBsgGuAbIB7gEDAa4BrwFHrwFLAwGtAa8BOq8BPgMBrAG6Aa4BugHwAQMBqgG3AUi3AUwDAakBtwE6twE/AwGoAeQBsgHkAd4BAwGaAeIBqALiAbgCAwGYAekBsgHpAd4BAwGWAecB+QHnAYACAwGVAZMCJZoCMAMBggGmAiWyAjUCAXyzAiW6AjACAXjGAiXKAjMCAW7LAiXSAjACAWqBA/QBgQO3AgIBZoEDwgKBA8gCAgFlgQOFAYEDiwECAWSHAyWNAzACAV2RAy2RA0ACAUyTAyO6Ay4CAU3ZAy3gAzgCASLhAy3oAzgCAR70Ay37AzgCAReHBC2LBEMCAROYArgBmALjAQMBhQGVAlCVAlMDAYQBlQJElQJHAwGDAaYCxAGmAtwBAgF9sAK4AbACtQICAX64ArgBuALpAQIBe7UCUbUCVQIBerUCRLUCSAIBecgCuAHIArkCAgF0xgKtAsYCswMCAW/QArgB0ALpAQIBbc0CUc0CVAIBbM0CRM0CSAIBa4gDJ4wDQAIBXpQDJaYDNgIBVacDJbkDNgIBTt4DwAHeA/MBAgEl2wNY2wNcAgEk2wNM2wNPAgEj5gPAAeYD/QECASHjA1njA10CASDjA0zjA1ACAR/5A8AB+QPlAQIBGvYDWfYDXQIBGfYDTPYDUAIBGIgDmwGIA6MBAgFiigOlAYoDrAICAWGKA7cCigO9AgIBYIgDT4gDVQIBX5QD+AGUA7sCAgFbmgMrowM2AgFWpwP4AacDvQICAVStAyu2AzYCAU+bAy2iAzgCAVeuAy21AzgCAVCgA8ABoAOEAgIBWp0DWZ0DXQIBWZ0DTJ0DUAIBWLMDwAGzA+gBAgFTsANZsANdAgFSsANMsANQAgFR</sads:DebugSymbol.Symbol>
+  </Flowchart>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="CreateDirectory_3" sap:VirtualizedContainerService.HintSize="242.4,22">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_16" sap:VirtualizedContainerService.HintSize="242.4,59.6" />
+      <sap2010:ViewStateData Id="Assign_17" sap:VirtualizedContainerService.HintSize="242.4,59.6" />
+      <sap2010:ViewStateData Id="Sequence_60" sap:VirtualizedContainerService.HintSize="264.4,345.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="314,87.2" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_1" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_61" sap:VirtualizedContainerService.HintSize="336,273.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_2" sap:VirtualizedContainerService.HintSize="403.6,22.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_2" sap:VirtualizedContainerService.HintSize="417.6,577.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_45" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_12" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="SelectItem_4" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_13" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_14" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_28" sap:VirtualizedContainerService.HintSize="336,696">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_6" sap:VirtualizedContainerService.HintSize="414,842">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_5" sap:VirtualizedContainerService.HintSize="314,87.2" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_3" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_63" sap:VirtualizedContainerService.HintSize="336,273.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_4" sap:VirtualizedContainerService.HintSize="417.6,22.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_4" sap:VirtualizedContainerService.HintSize="431.6,1074.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_27" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TypeInto_20" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="SendHotkey_1" sap:VirtualizedContainerService.HintSize="314,155.6" />
+      <sap2010:ViewStateData Id="Sequence_46" sap:VirtualizedContainerService.HintSize="336,453.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_8" sap:VirtualizedContainerService.HintSize="414,599.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="314,87.2" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_4" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_64" sap:VirtualizedContainerService.HintSize="336,273.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_5" sap:VirtualizedContainerService.HintSize="417.6,22.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_5" sap:VirtualizedContainerService.HintSize="431.6,832">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Delay_1" sap:VirtualizedContainerService.HintSize="431.6,22" />
+      <sap2010:ViewStateData Id="Sequence_39" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_16" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_40" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_7" sap:VirtualizedContainerService.HintSize="414,376">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="SelectItem_6" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_17" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_41" sap:VirtualizedContainerService.HintSize="336,404">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_3" sap:VirtualizedContainerService.HintSize="414,550">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TypeInto_18" sap:VirtualizedContainerService.HintSize="314,134" />
+      <sap2010:ViewStateData Id="Click_18" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_43" sap:VirtualizedContainerService.HintSize="336,404">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_4" sap:VirtualizedContainerService.HintSize="414,550">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_57" sap:VirtualizedContainerService.HintSize="436,1680">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_19" sap:VirtualizedContainerService.HintSize="314,59.6" />
+      <sap2010:ViewStateData Id="LogMessage_3" sap:VirtualizedContainerService.HintSize="314,93.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="LogMessage_4" sap:VirtualizedContainerService.HintSize="314,93.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_25" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_26" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_59" sap:VirtualizedContainerService.HintSize="336,741.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_1" sap:VirtualizedContainerService.HintSize="439.6,22.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WaitUiElementAppear_2" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_52" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_7" sap:VirtualizedContainerService.HintSize="588.8,338" />
+      <sap2010:ViewStateData Id="Click_24" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_55" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_9" sap:VirtualizedContainerService.HintSize="414,338" />
+      <sap2010:ViewStateData Id="Click_23" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_53" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_8" sap:VirtualizedContainerService.HintSize="414,338" />
+      <sap2010:ViewStateData Id="Sequence_56" sap:VirtualizedContainerService.HintSize="436,840">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="588.8,990" />
+      <sap2010:ViewStateData Id="Sequence_54" sap:VirtualizedContainerService.HintSize="242.4,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Assign_15" sap:VirtualizedContainerService.HintSize="242.4,59.6" />
+      <sap2010:ViewStateData Id="Sequence_58" sap:VirtualizedContainerService.HintSize="264.4,276">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_1" sap:VirtualizedContainerService.HintSize="453.6,1912.4" />
+      <sap2010:ViewStateData Id="Sequence_44" sap:VirtualizedContainerService.HintSize="475.6,2036.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_19" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Click_20" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_48" sap:VirtualizedContainerService.HintSize="336,376">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_9" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Click_21" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_49" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_5" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="CloseApplication_1" sap:VirtualizedContainerService.HintSize="314,106" />
+      <sap2010:ViewStateData Id="Sequence_50" sap:VirtualizedContainerService.HintSize="336,230">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="WindowScope_6" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_65" sap:VirtualizedContainerService.HintSize="222,361.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="314,87.2" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_5" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_66" sap:VirtualizedContainerService.HintSize="336,273.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_6" sap:VirtualizedContainerService.HintSize="403.6,22.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_6" sap:VirtualizedContainerService.HintSize="417.6,593.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_29" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_13">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">10,653.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.4</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowDecision_1" sap:VirtualizedContainerService.HintSize="70,87.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <av:Point x:Key="ShapeLocation">255,516.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">70,87.2</av:Size>
+            <av:PointCollection x:Key="FalseConnector">325,560 510.4,560 510.4,340 390,340</av:PointCollection>
+            <av:PointCollection x:Key="TrueConnector">255,560 110,560 110,653.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_19">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">190,403.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.4</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">290,456.333333333333 290,516.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_18">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">190,313.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.4</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">290,366.333333333333 290,403.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_12">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">190,223.666666666667</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.4</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">290,276.333333333333 290,313.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_20">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">190,117.333333333333</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.4</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">290,170 290,223.666666666667</av:PointCollection>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="314,87.2" />
+      <sap2010:ViewStateData Id="TerminateWorkflow_2" sap:VirtualizedContainerService.HintSize="314,22" />
+      <sap2010:ViewStateData Id="Sequence_62" sap:VirtualizedContainerService.HintSize="336,273.2">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Catch`1_3" sap:VirtualizedContainerService.HintSize="403.6,343.6">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="TryCatch_3" sap:VirtualizedContainerService.HintSize="200,52.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_21">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">640,203.8</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.4</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="854,1112.4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <av:Point x:Key="ShapeLocation">260,2.66666666666666</av:Point>
+            <av:Size x:Key="ShapeSize">60,75.2</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">290,77.3333333333333 290,117.333333333333</av:PointCollection>
+            <x:Double x:Key="Width">840</x:Double>
+            <x:Double x:Key="Height">1076.3333333333337</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="894,1192.4" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

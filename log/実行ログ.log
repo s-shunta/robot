@@ -1,0 +1,7 @@
+UiPath.Core.SelectorNotFoundException: このセレクターに対応する UI 要素が見つかりません: <wnd cls='DirectUIHWND' /><ctrl name='タブ行' role='page tab list' /><ctrl role='page tab' idx='2' /><ctrl name='タブを閉じる (Ctrl+W)' role='push button' /> ---> System.Runtime.InteropServices.COMException: このセレクターに対応する UI 要素が見つかりません: <wnd cls='DirectUIHWND' /><ctrl name='タブ行' role='page tab list' /><ctrl role='page tab' idx='2' /><ctrl name='タブを閉じる (Ctrl+W)' role='push button' />
+   場所 UiPath.UiNodeClass.FindFirst(UiFindScope scope, String nodeID)
+   場所 UiPath.Core.UiElement.FindFirst(FindScope scope, Selector selector)
+   --- 内部例外スタック トレースの終わり ---
+   場所 UiPath.Core.Activities.ScopeActivity.OnFaulted(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
+   場所 System.Activities.Runtime.FaultCallbackWrapper.Invoke(NativeActivityFaultContext faultContext, Exception propagatedException, ActivityInstance propagatedFrom)
+   場所 System.Activities.Runtime.FaultCallbackWrapper.FaultWorkItem.Execute(ActivityExecutor executor, BookmarkManager bookmarkManager)
